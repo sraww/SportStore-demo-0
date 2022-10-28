@@ -1,0 +1,40 @@
+﻿<Window x:Class="SportStore.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportStore"
+        mc:Ignorable="d"
+        Title="LoginWindow" Height="500" Width="400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Icon="Resources/img1.png">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Image Source="Resources/img1.png" Grid.Column="1" Width="200" Grid.ColumnSpan="2" Margin="-130, 5, 0, 0" />
+
+        <StackPanel VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="-30, -120, 100, 0">
+            <TextBlock Text="Логин" FontSize="15" />
+            <TextBox x:Name="textBoxLogin" FontSize="15" Margin="0, 0, 0, 5" />
+
+            <TextBlock Text="Пароль" FontSize="15" />
+            <PasswordBox x:Name="passBox" FontSize="15" Margin="0, 0, 0, 5" />
+
+            <Button Content="Авторизация" FontSize="15" Height="30" Click="ButtonLogin_Click" Margin="0, 0, 0, 5" Background="#FF76E383" />
+            <Button Content="Гость" FontSize="15" Height="30" Click="ButtonGuest_Click" Background="#FF76E383" />
+        </StackPanel>
+
+    </Grid>
+</Window>

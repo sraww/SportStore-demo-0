@@ -24,5 +24,15 @@ namespace SportStore
         {
             InitializeComponent();
         }
+
+        private void ButtonLogin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonGuest_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
