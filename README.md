@@ -162,6 +162,7 @@ public partial class UpdateWindow : Window
             Id = userId;
         }
 
+        // Update Редактировать данные
         private void UpdateUserButton(object sender, RoutedEventArgs e)
         {
             using (SportStoreContext db = new SportStoreContext())
@@ -185,6 +186,103 @@ public partial class UpdateWindow : Window
                 {
                     MessageBox.Show(ex.Message);
                 }
+            }
+        }
+    }
+```
+
+### AddWindow
+![add](https://user-images.githubusercontent.com/98191494/198884034-034f6fbc-192e-46b7-8c96-e766e350a41d.PNG)
+```C#
+<Grid>
+        <Border BorderThickness="1"
+                BorderBrush="BlueViolet"
+                Margin="10">
+
+            <StackPanel Margin="5">
+                <TextBlock Text="Имя" Width="200" Height="20" />
+                <TextBox x:Name="textBoxName" Text="{Binding Name}" Width="200" Height="20"/>
+
+                <TextBlock Text="Фамилия" Width="200" Height="20"/>
+                <TextBox x:Name="textBoxSurname" Text="{Binding Surname}" Width="200" Height="20" />
+
+                <TextBlock Text="Отчество" Width="200" Height="20"/>
+                <TextBox x:Name="textBoxPatronymic" Text="{Binding Patronymic}" Width="200" Height="20" />
+
+                <TextBlock Text="Логин" Width="200" Height="20"/>
+                <TextBox x:Name="textBoxLogin" Text="{Binding Login}" Width="200" Height="20" />
+
+                <TextBlock Text="Пароль" Width="200" Height="20"/>
+                <TextBox x:Name="textBoxPassword" Text="{Binding Password}" Width="200" Height="20" />
+
+                <TextBlock Text="Роль" Width="200" Height="20"/>
+                <TextBox x:Name="textBoxRole" Text="{Binding Role.Name}" Width="200" Height="20"/>
+
+                <Button Content="Изменить" Click="AddUserButton" Margin="0, 25, 0, 0" Background="#FF76E383" Width="200" Height="20" />
+            </StackPanel>
+        </Border>
+    </Grid>
+```
+
+### Код AddWindow
+```C#
+ public partial class AddWindow : Window
+    {
+        public AddWindow(User user)
+        {
+            InitializeComponent();
+
+            DataContext = user;
+        }
+
+        // Create Добавить новую запись
+        private void AddUserButton(object sender, RoutedEventArgs e)
+        {
+            // Валидация полей
+            StringBuilder errors = new StringBuilder();
+            if (string.IsNullOrWhiteSpace(textBoxName.Text))
+                errors.AppendLine("Укажите имя");
+            if (string.IsNullOrWhiteSpace(textBoxSurname.Text))
+                errors.AppendLine("Укажите фамилию");
+            if (string.IsNullOrWhiteSpace(textBoxPatronymic.Text))
+                errors.AppendLine("Укажите отчество");
+            if (string.IsNullOrWhiteSpace(textBoxLogin.Text))
+                errors.AppendLine("Укажите логин");
+            if (string.IsNullOrWhiteSpace(textBoxPassword.Text))
+                errors.AppendLine("Укажите пароль");
+            if (string.IsNullOrWhiteSpace(textBoxRole.Text))
+                errors.AppendLine("Укажите роль");
+
+            if (errors.Length > 0)
+            {
+                MessageBox.Show(errors.ToString());
+                return;
+            }
+
+            using (SportStoreContext db = new SportStoreContext())
+            {
+                User user = new User()
+                {
+                    Name = textBoxName.Text,
+                    Surname = textBoxSurname.Text,
+                    Patronymic = textBoxPatronymic.Text,
+                    Login = textBoxLogin.Text,
+                    Password = textBoxPassword.Text,
+                    Role = db.Roles.Where(r => r.Name == textBoxRole.Text).FirstOrDefault()
+                };
+
+                db.Users.Add(user);
+
+                try
+                {
+                    db.SaveChanges();
+
+                    MessageBox.Show($"Пользователь {textBoxName.Text} успешно добавлен !");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.InnerException.Message);
+                } 
             }
         }
     }
