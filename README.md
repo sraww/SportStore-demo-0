@@ -113,3 +113,79 @@ public partial class DataWindow : Window
         }
     }
 ```
+
+### UpdateWindow
+![update](https://user-images.githubusercontent.com/98191494/198883786-67e8bf24-66f0-45e5-a0c8-761f6fb7a7b9.PNG)
+```C#
+   <Grid>
+        <Border BorderThickness="1"
+                BorderBrush="BlueViolet"
+                Margin="10">
+
+            <StackPanel Margin="5">
+                <TextBlock Text="Имя" Width="200" Height="20" />
+                <TextBox x:Name="textBoxName" Text="{Binding Name}" Width="200" Height="20"/>
+
+                <TextBlock Text="Фамилия" Width="200" Height="20"/>
+                <TextBox x:Name="textBoxSurname" Text="{Binding Surname}" Width="200" Height="20" />
+
+                <TextBlock Text="Отчество" Width="200" Height="20"/>
+                <TextBox x:Name="textBoxPatronymic" Text="{Binding Patronymic}" Width="200" Height="20" />
+
+                <TextBlock Text="Логин" Width="200" Height="20"/>
+                <TextBox x:Name="textBoxLogin" Text="{Binding Login}" Width="200" Height="20" />
+
+                <TextBlock Text="Пароль" Width="200" Height="20"/>
+                <TextBox x:Name="textBoxPassword" Text="{Binding Password}" Width="200" Height="20" />
+
+                <TextBlock Text="Роль" Width="200" Height="20"/>
+                <TextBox x:Name="textBoxRole" Text="{Binding Role.Name}" Width="200" Height="20"/>
+
+                <Button Content="Изменить" Click="UpdateUserButton" Margin="0, 25, 0, 0" Background="#FF76E383" Width="200" Height="20" />
+            </StackPanel>
+        </Border>
+    </Grid>
+```
+
+### Код окна UpdateWindow
+```C#
+public partial class UpdateWindow : Window
+    {
+
+        public int Id;
+
+        public UpdateWindow(User user, int userId)
+        {
+            InitializeComponent();
+
+            DataContext = user;
+            Id = userId;
+        }
+
+        private void UpdateUserButton(object sender, RoutedEventArgs e)
+        {
+            using (SportStoreContext db = new SportStoreContext())
+            {
+                try
+                {
+                    User user = (from m in db.Users where m.Id == Id select m).Single();
+
+                    user.Name = textBoxName.Text;
+                    user.Surname = textBoxSurname.Text;
+                    user.Patronymic = textBoxPatronymic.Text;
+                    user.Login = textBoxLogin.Text;
+                    user.Password = textBoxPassword.Text;
+                    user.Role = db.Roles.Where(r => r.Name == textBoxRole.Text).FirstOrDefault();
+
+                    db.SaveChanges();
+
+                    MessageBox.Show("Данные изменены");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+    }
+```
