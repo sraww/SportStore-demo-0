@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportStore"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="500" Width="400"
+        Title="Login" Height="500" Width="400"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Icon="Resources/img1.png">
@@ -30,7 +30,7 @@
             <TextBox x:Name="textBoxLogin" FontSize="15" Margin="0, 0, 0, 5" />
 
             <TextBlock Text="Пароль" FontSize="15" />
-            <PasswordBox x:Name="passBox" FontSize="15" Margin="0, 0, 0, 5" />
+            <PasswordBox x:Name="passBox" FontSize="15" Margin="0, 0, 0, 10" />
 
             <Button Content="Авторизация" FontSize="15" Height="30" Click="ButtonLogin_Click" Margin="0, 0, 0, 5" Background="#FF76E383" />
             <Button Content="Гость" FontSize="15" Height="30" Click="ButtonGuest_Click" Background="#FF76E383" />

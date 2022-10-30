@@ -16,11 +16,12 @@ namespace SportStore
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            using (SQLiteContext db = new SQLiteContext())
+            using (SportStoreContext db = new SportStoreContext())
             {
-                if (db.Users.FirstOrDefault(user => user.Name == textBoxLogin.Text && user.Password == passBox.Password) != null)
+                if (db.Users.FirstOrDefault(user => user.Login == textBoxLogin.Text && user.Password == passBox.Password) != null)
                 {
-                    MessageBox.Show("Успешно");
+                    new DataWindow().Show();
+                    Close();
                 }
                 else
                 {
@@ -31,7 +32,7 @@ namespace SportStore
 
         private void ButtonGuest_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Гость");
         }
     }
 }
