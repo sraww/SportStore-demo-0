@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:SportStore"
         mc:Ignorable="d"
         Title="Update" Height="400" Width="300"
-        Icon="Resources/img1.png">
+        Icon="Resources/img1.png"
+        WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Border BorderThickness="1"
