@@ -1,11 +1,11 @@
-﻿<Window x:Class="SportStore.AddWindow"
+﻿<Window x:Class="SportStore.AddEditWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportStore"
         mc:Ignorable="d"
-        Title="Add" Height="400" Width="300"
+        Title="AddEdit" Height="400" Width="300"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         Icon="Resources/img1.png">
