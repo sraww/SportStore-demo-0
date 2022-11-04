@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SportStore.Models;
+﻿using SportStore.Models;
 using System;
 using System.Linq;
 using System.Text;
@@ -58,50 +57,48 @@ namespace SportStore
             {
                 if (currentUser == null)
                 {
-                    try
+                    User user = new User()
                     {
-                        User user = new User()
-                        {
-                            Name = textBoxName.Text,
-                            Surname = textBoxSurname.Text,
-                            Patronymic = textBoxPatronymic.Text,
-                            Login = textBoxLogin.Text,
-                            Password = textBoxPassword.Text,
-                            Role = db.Roles.Where(r => r.Name == textBoxRole.Text).FirstOrDefault()
-                        };
+                        Name = textBoxName.Text,
+                        Surname = textBoxSurname.Text,
+                        Patronymic = textBoxPatronymic.Text,
+                        Login = textBoxLogin.Text,
+                        Password = textBoxPassword.Text,
+                        Role = db.Roles.Where(r => r.Name == textBoxRole.Text).FirstOrDefault()
+                    };
 
-                        db.Users.Add(user);
-
-                        db.SaveChanges();
-
-                        MessageBox.Show("Данные добавлены");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                    db.Users.Add(user);
                 }
+
                 else
                 {
-                    try
+                    User user = (from m in db.Users where m.Id == Id select m).Single();
+
+                    user.Name = textBoxName.Text;
+                    user.Surname = textBoxSurname.Text;
+                    user.Patronymic = textBoxPatronymic.Text;
+                    user.Login = textBoxLogin.Text;
+                    user.Password = textBoxPassword.Text;
+                    user.Role = db.Roles.Where(r => r.Name == textBoxRole.Text).FirstOrDefault();
+                }
+
+                try
+                {
+                    if (db.Roles.Where(r => r.Name == textBoxRole.Text).FirstOrDefault() != null)
                     {
-                        User user = (from m in db.Users where m.Id == Id select m).Single();
-
-                        user.Name = textBoxName.Text;
-                        user.Surname = textBoxSurname.Text;
-                        user.Patronymic = textBoxPatronymic.Text;
-                        user.Login = textBoxLogin.Text;
-                        user.Password = textBoxPassword.Text;
-                        user.Role = db.Roles.Where(r => r.Name == textBoxRole.Text).FirstOrDefault();
-
                         db.SaveChanges();
-
-                        MessageBox.Show("Данные изменены");
+                        MessageBox.Show("Данные добавлены");
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show(ex.Message);
+                        MessageBox.Show($"Такой роли нет");
                     }
+
+                    Proxy.userGrid.ItemsSource = db.Users.ToList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
                 }
             }
         }

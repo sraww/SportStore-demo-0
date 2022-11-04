@@ -72,14 +72,13 @@ namespace SportStore
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            //    if (e.Key == Key.F5)
-            //    {
-            //        using (SportStoreContext db = new SportStoreContext())
-            //        {
-            //            usersGrid.ItemsSource = db.Users.ToList();
-            //            Proxy.userGrid = usersGrid;
-            //        }
-            //    }
+            if (e.Key == Key.F5)
+            {
+                using (SportStoreContext db = new SportStoreContext())
+                {
+                    usersGrid.ItemsSource = db.Users.Include(u => u.Role).ToList();
+                }
+            }
         }
     }
 }
