@@ -1,4 +1,5 @@
-﻿using SportStore.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SportStore.Models;
 using System;
 using System.Linq;
 using System.Text;
@@ -72,6 +73,9 @@ namespace SportStore
 
                 else
                 {
+                    //currentUser.Role = db.Roles.Where(r => r.Name == textBoxRole.Text).FirstOrDefault();
+                    //db.Update(currentUser);
+
                     User user = (from m in db.Users where m.Id == Id select m).Single();
 
                     user.Name = textBoxName.Text;
@@ -94,7 +98,7 @@ namespace SportStore
                         MessageBox.Show($"Такой роли нет");
                     }
 
-                    Proxy.userGrid.ItemsSource = db.Users.ToList();
+                    Proxy.userGrid.ItemsSource = db.Users.Include(u => u.Role).ToList();
                 }
                 catch (Exception ex)
                 {
