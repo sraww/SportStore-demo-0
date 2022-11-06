@@ -8,7 +8,8 @@
         Title="Data" Height="450" Width="800"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Icon="Resources/img1.png">
+        Icon="Resources/img1.png"
+        KeyDown="Window_KeyDown">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -19,14 +20,15 @@
         <DataGrid x:Name="usersGrid" 
                   IsReadOnly="True" 
                   AutoGenerateColumns="False" 
-                  MouseDoubleClick="SelectUser" >
+                  MouseDoubleClick="SelectUser"
+                  SelectionMode="Extended">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
                 <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия"/>
                 <DataGridTextColumn Binding="{Binding Patronymic}" Header="Отчество" Width="400"/>
 
-                <DataGridTemplateColumn Header="Action">
+                <DataGridTemplateColumn Header="Действие">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="Удалить" Click="Delete" Width="200" Background="#FF76E383" />
@@ -39,7 +41,7 @@
 
         <Button Width="120" Height="30" Margin="200, 0, 0, 0" Content="Добавить" Click="AddUsers" Grid.Row="1" Background="#FF76E383" />
 
-        <Button Width="120" Height="30" Margin="-200, 0, 0, 0"  Content="Изменить" Click="UpdateUsers" Grid.Row="1" Background="#FF76E383" />
+        <Button Width="120" Height="30" Margin="-200, 0, 0, 0"  Content="Изменить" Click="UpdateUsers_Button" Grid.Row="1" Background="#FF76E383" />
 
     </Grid>
 </Window>
